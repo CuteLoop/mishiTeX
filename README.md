@@ -1,115 +1,120 @@
-# 🐱 MishiTeX
+Below is a ready‑to‑drop `README.md` for the **MyBook LaTeX Starter** you just prototyped.
+Feel free to tweak titles, author name, or screenshots as you like.
 
-**MishiTeX** is a command-line tool to scaffold LaTeX projects for common academic and professional writing tasks. It helps users quickly generate structured LaTeX environments with clean organization, smart defaults, and a dash of feline flair.
+````markdown
+# 📚 MyBook LaTeX Starter
 
----
-
-## 🎯 Project Goals
-- Provide clean, pre-structured LaTeX environments
-- Support 10+ common use cases (thesis, slides, CV, etc.)
-- Modular and extensible template system
-- Beginner-friendly CLI with emoji feedback
-- Easy integration of custom styles, macros, and configs
+*A minimal, self‑contained template for writing books or class notes in LaTeX,
+automatically scaffolded by `create_book_project.py`.*
 
 ---
 
-## 🧩 Use Cases Supported
-| Type       | Description                              |
-|------------|------------------------------------------|
-| `book`     | Book or class notes                      |
-| `paper`    | Academic paper or conference submission  |
-| `cv`       | Resume or curriculum vitae               |
-| `thesis`   | Thesis or dissertation                   |
-| `homework` | Problem sets or homework                 |
-| `slides`   | Beamer presentations                     |
-| `labreport`| Scientific/lab report                    |
-| `essay`    | Essay or humanities writing              |
-| `worksheet`| Math handouts or worksheets              |
-| `notebook` | Research notebook or logbook             |
+## ✨ Features
+
+| ✨ | Description |
+|----|-------------|
+| **One‑command scaffold** | Run the Python script → instantly get a complete project tree. |
+| **Notes vs Print modes** | Toggle `\notestrue` / `\notesfalse` in `main.tex` for spacious lecture notes or classic print layout. |
+| **Modular chapters** | Drop new `chapters/*.tex` files, add `\include{}` lines, rebuild. |
+| **Central preamble & macros** | Configure packages and custom commands once in `preamble.tex`. |
+| **Clean builds** | Included `Makefile` with `all` and `clean` targets; `.gitignore` excludes LaTeX aux files. |
 
 ---
 
-## 🗂️ Repository Structure
+## 🚀 Quick Start
+
 ```bash
-mishitex/
-├── mishitex/               # Python CLI package
-│   ├── __init__.py
-│   ├── cli.py              # CLI entrypoint logic
-│   └── scaffold.py         # Core logic for project creation
-├── templates/              # Template folders for each use case
-│   ├── book/
-│   ├── thesis/
-│   └── ...
-├── tests/                  # Unit tests for CLI and templates
-├── README.md
-├── mishitex.py             # CLI shortcut for local use
-├── setup.py                # Install script
-└── pyproject.toml          # Optional modern packaging
+# 1. Clone or copy this repo
+git clone https://github.com/your‑username/mybook.git
+cd mybook
+
+# 2. (Optional) create the structure again from scratch
+python create_book_project.py   # regenerates folders if missing
+
+# 3. Compile the PDF
+make            # or: pdflatex main.tex && bibtex main && pdflatex main.tex
+
+# 4. Open build/main.pdf
+````
+
+> **Requirements**
+> • Python 3.8+ (to run the scaffold script)
+> • A LaTeX distribution (TeX Live, MikTeX, or MacTeX) providing `pdflatex` and `bibtex`
+
+---
+
+## 🗂️ Resulting Project Tree
+
 ```
-
----
-
-## 🧱 Template Layout (Example: `book/`)
-```bash
-templates/book/
-├── main.tex                # Main entrypoint
-├── preamble.tex            # Shared packages and settings
-├── macros.tex              # Custom user commands
-├── config/
-│   ├── style-notes.tex     # Notes version
-│   └── style-print.tex     # Print version
-├── chapters/
+mybook/
+├── main.tex          # Master document
+├── preamble.tex      # Shared packages + custom commands
+├── bibliography.bib  # References
+├── Makefile          # Build helper
+├── .gitignore
+├── config/           # Alternate style files
+│   ├── style-notes.tex
+│   └── style-print.tex
+├── chapters/         # Content files (use \chapter{})
 │   ├── chapter1.tex
 │   └── chapter2.tex
-├── figures/
-└── bibliography.bib        # BibTeX file
+└── figures/          # Images (PNG, PDF, etc.)
 ```
 
 ---
 
-## 🎨 Styling and Commands
-- `preamble.tex` — Load core packages and layout defaults
-- `macros.tex` — User-defined commands like `\solution{}`
-- `config/` — Optional toggles for different styling modes (e.g., notes vs print)
+## 🖌️ Switching Layouts
 
-These are loaded in `main.tex` using `\input{}`.
+Open **`main.tex`** and flip the boolean at the top:
+
+```latex
+\newif\ifnotes
+\notestrue      % spacious margins, para skip, colored links
+
+% \notesfalse   % tight print layout, indented paragraphs, B/W links
+```
 
 ---
 
-## 🚀 Usage
+## 📝 Customisation Tips
+
+| Task                   | How‑to                                                                                        |
+| ---------------------- | --------------------------------------------------------------------------------------------- |
+| **Add a chapter**      | Create `chapters/chapter3.tex` and add `\include{chapters/chapter3}` before `\end{document}`. |
+| **Change margins**     | Edit `\geometry{margin=1in}` in `preamble.tex`.                                               |
+| **Define new macros**  | Append to `preamble.tex` or `macros.tex` (if you split it).                                   |
+| **Bibliography style** | Replace `plain` in `\bibliographystyle{plain}` with `abbrv`, `apalike`, etc.                  |
+
+---
+
+## 🧹 Cleaning Aux Files
+
 ```bash
-mishitex init --type book --name "MyCourseNotes"
+make clean
 ```
-- Creates `MyCourseNotes/` with the `book` template
-- Fails gracefully if directory already exists
+
+This removes `.aux`, `.log`, `.toc`, `.out`, `.bbl`, and `.blg`.
 
 ---
 
-## 🛠️ Future Enhancements
-- Interactive prompts (e.g., title, author)
-- Template variables using Jinja2-style placeholders
-- GitHub Actions for LaTeX build verification
-- VS Code LaTeX Workshop config bundling
+## 🔄 Regenerating the Template
 
----
+Need to start over or create a second book?
 
-## 🧪 Developer Notes
-- Every template must compile with `pdflatex`
-- Tests validate that key files like `main.tex` exist
-- No PDFs or build artifacts should live in `templates/`
+```bash
+python create_book_project.py  # generates mybook/ in the current directory
+```
 
----
-
-## 🐱 Mascot: Mishi the TeX Cat
-**Mishi** is a clever academic feline who lives in your terminal and helps you compile beauty from chaos. When you're stuck with 17 open `egin{}`s, she's got your back.
-
-**Lema**: *"Compila bonito o no compiles nada."*
+Pass a different `project_name` variable or tweak the script for multiple book roots.
 
 ---
 
 ## 📄 License
-Licensed under the MIT License — free to use, remix, and share with attribution.
 
----
+MIT — use it, fork it, share it.
+If you publish something awesome with it, a shout‑out is appreciated! 🙌
 
-Made with ❤️ and `\documentclass` by the MishiTeX team.
+```
+
+*Copy‑paste the snippet above into a `README.md` at the root of your generated `mybook/` folder.*
+```

@@ -1,0 +1,29 @@
+\documentclass[11pt]{book}
+
+\newif\ifnotes
+\notestrue  % Change to \notesfalse for print
+
+\input{preamble}
+
+\ifnotes
+  \input{config/style-notes}
+\else
+  \input{config/style-print}
+\fi
+
+\title{My Book Title}
+\author{Your Name}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\include{chapters/chapter1}
+\include{chapters/chapter2}
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+\end{document}
